@@ -8,6 +8,7 @@ const productsSchema = new Schema(
     },
     isNew: {
       type: Number,
+      required: true,
     },
     photo: {
       type: String,
@@ -22,14 +23,6 @@ const productsSchema = new Schema(
     specification: {
       type: String,
     },
-    guarantee: Object,
-    price: Array,
-    order: {
-      type: Number,
-    },
-    date: {
-      type: Date,
-    },
   },
   {
     timestamps: true,
@@ -37,4 +30,4 @@ const productsSchema = new Schema(
   },
 );
 
-export const ProductsCollection = model('inventory', productsSchema);
+export const ProductsCollection = model('products', productsSchema);
