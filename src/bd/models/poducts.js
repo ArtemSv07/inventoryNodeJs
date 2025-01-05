@@ -3,7 +3,7 @@ import { model, Schema } from 'mongoose';
 const productsSchema = new Schema(
   {
     serialNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     isNew: {

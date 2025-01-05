@@ -24,7 +24,9 @@ export const deleteProduct = async (productId) => {
 
 export const updateProduct = async (productId, payload, options = {}) => {
   const rawResult = await ProductsCollection.findByIdAndUpdate(
-    { _id: productId },
+    {
+      _id: productId,
+    },
     payload,
     { new: true, includeResultMetadata: true, ...options },
   );
