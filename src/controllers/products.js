@@ -9,12 +9,18 @@ import {
 } from '../services/inventoryProducts.js';
 
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
 
 export const getProductsController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParams(req.query);
+
+  const { sortBy, sortOrder } = parseSortParams(req.query);
+
   const products = await getAllProducts({
     page,
     perPage,
+    sortBy,
+    sortOrder,
   });
 
   res.json({

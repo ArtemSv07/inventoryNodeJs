@@ -1,7 +1,13 @@
 import { ProductsCollection } from '../bd/models/poducts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+import { SORT_ORDER } from '../constants/index.js';
 
-export const getAllProducts = async ({ page, perPage }) => {
+export const getAllProducts = async ({
+  page = 1,
+  perPage = 10,
+  sortOrder = SORT_ORDER.ASC,
+  sortBy = '_id',
+}) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
@@ -10,7 +16,11 @@ export const getAllProducts = async ({ page, perPage }) => {
     .merge(productsQuery)
     .countDocuments();
 
-  const products = await productsQuery.skip(skip).limit(limit).exec();
+  const products = await productsQuery
+    .skip(skip)
+    .limit(limit)
+    .sort({ [sortBy]: sortOrder })
+    .exec();
 
   const paginationData = calculatePaginationData(productsCount, perPage, page);
   return {
