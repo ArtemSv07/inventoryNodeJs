@@ -11,13 +11,17 @@ import {
   updateProductSchema,
 } from '../validation/products.js';
 import { validateBody } from '../middlewares/validateBody.js';
-
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { isValidId } from '../middlewares/isValidId.js';
 
 const router = Router();
 
 router.get('/products', ctrlWrapper(getProductsController));
-router.get('/products/:productId', ctrlWrapper(getProductByIdController));
+router.get(
+  '/products/:productId',
+  isValidId,
+  ctrlWrapper(getProductByIdController),
+);
 router.post(
   '/products',
   validateBody(createProductSchema),

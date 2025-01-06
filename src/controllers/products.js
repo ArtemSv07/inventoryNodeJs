@@ -8,8 +8,14 @@ import {
   updateProduct,
 } from '../services/inventoryProducts.js';
 
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+
 export const getProductsController = async (req, res, next) => {
-  const products = await getAllProducts();
+  const { page, perPage } = parsePaginationParams(req.query);
+  const products = await getAllProducts({
+    page,
+    perPage,
+  });
 
   res.json({
     status: 200,
