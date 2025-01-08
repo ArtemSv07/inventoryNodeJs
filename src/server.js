@@ -2,7 +2,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 
-import productsRouter from './routers/products.js';
+import router from './routers/index.js';
 import { env } from './utils/env.js';
 
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -30,13 +30,7 @@ export const startServer = () => {
     }),
   );
 
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'Hello World!',
-    });
-  });
-
-  app.use(productsRouter);
+  app.use(router);
 
   app.use('*', notFoundHandler);
 

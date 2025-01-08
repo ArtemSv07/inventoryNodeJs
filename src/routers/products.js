@@ -6,30 +6,30 @@ import {
   deleteProductController,
   patchProductController,
 } from '../controllers/products.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { validateBody } from '../middlewares/validateBody.js';
 import {
   createProductSchema,
   updateProductSchema,
 } from '../validation/products.js';
-import { validateBody } from '../middlewares/validateBody.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { isValidId } from '../middlewares/isValidId.js';
 
 const router = Router();
 
-router.get('/products', ctrlWrapper(getProductsController));
-router.get(
-  '/products/:productId',
-  isValidId,
-  ctrlWrapper(getProductByIdController),
-);
+router.get('/', ctrlWrapper(getProductsController));
+
+router.get('/:productId', isValidId, ctrlWrapper(getProductByIdController));
+
 router.post(
-  '/products',
+  '/register',
   validateBody(createProductSchema),
   ctrlWrapper(createProductController),
 );
-router.delete('/products/:productId', ctrlWrapper(deleteProductController));
+
+router.delete('/:productId', ctrlWrapper(deleteProductController));
+
 router.patch(
-  '/products/:productId',
+  '/:productId',
   validateBody(updateProductSchema),
   ctrlWrapper(patchProductController),
 );
